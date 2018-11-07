@@ -33,6 +33,24 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] bubbleSort(final int[] array) {
+        boolean swap;
+        for (int j = 0; j < array.length; j++) {
+            swap = false;
+            for (int i = 1; i < array.length - j; i++) {
+                if (array[i] < array[i - 1]) {
+                    int temp = array[i - 1];
+                    array[i - 1] = array[i];
+                    array[i] = temp;
+                    swap = true;
+                }
+            }
+            if (swap == false) {
+                break;
+            }
+        }
+        if (isSorted(array)) {
+            return array;
+        }
         return null;
     }
 
@@ -44,6 +62,19 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] selectionSort(final int[] array) {
+        int[] sortedArray = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            int min = array[i];
+            for (int j = 1; j < array.length; j++) {
+                if (array[j] < min) {
+                    min = array[j];
+                }
+            }
+            sortedArray[i] = min;
+        }
+        if (isSorted(sortedArray)) {
+            return sortedArray;
+        }
         return null;
     }
 
@@ -55,7 +86,15 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] mergeSort(final int[] array) {
-        return null;
+        if (array.length <= 1) {
+            return array;
+        }
+        int[] firstHalf = new int[array.length / 2];
+        int[] secondHalf = new int[array.length - firstHalf.length];
+
+        mergeSort(firstHalf);
+        mergeSort(secondHalf);
+        return merge(firstHalf, secondHalf);
     }
 
     /**
